@@ -47,11 +47,9 @@ public class loginForm extends JFrame {
                 // TODO Auto-generated method stub
                 String email = tfEmail.getText();
                 String password = String.valueOf(pfPassword.getPassword());
-                User user = getAuthenticatedUser(email, password);
-                if (user != null) {
-                    new program();
-                    program program = new program();
-                    program.initialize();
+                Boolean user = getAuthenticatedUser(email, password);
+                if (user) {
+                    mainFrame mainFrame = new mainFrame();
 
                 } else {
                     JOptionPane.showMessageDialog(loginForm.this,
@@ -74,7 +72,7 @@ public class loginForm extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 // TODO Auto-generated method stub
                 signup signup = new signup();
-                signup.signup();
+                signup.show();
             }
         });
 
@@ -111,12 +109,11 @@ public class loginForm extends JFrame {
         setVisible(true);
     }
 
-    private User getAuthenticatedUser(String email, String password) {
-        User user = null;
+    private boolean getAuthenticatedUser(String email, String password) {
 
-        final String DB_URL = "jdbc:mysql://localhost/MyStore?serverTimezone=UTC";
+        final String DB_URL = "jdbc:mysql://localhost:3306/sys";
         final String USERNAME = "root";
-        final String PASSWORD = "";
+        final String PASSWORD = "Liplan2020";
 
         try {
             Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
@@ -130,22 +127,17 @@ public class loginForm extends JFrame {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
-                user = new User();
-                user.name = resultSet.getString("name");
-                user.email = resultSet.getString("email");
-                user.phone = resultSet.getString("phone");
-                user.address = resultSet.getString("address");
-                user.password = resultSet.getString("password");
+                return true;
             }
 
             preparedStatement.close();
             conn.close();
 
         } catch (Exception e) {
-            System.out.println("Database connexion failed!");
+            System.out.println("Database connection failed!");
         }
 
-        return user;
+        return false;
     }
 
     public static void main(String[] args) {
@@ -161,7 +153,6 @@ public class loginForm extends JFrame {
         // and close the login form
         // if the user is null. take user to the registration form if they click
         // register button and close the login form
-
 
     }
 }

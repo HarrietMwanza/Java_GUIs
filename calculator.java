@@ -48,6 +48,7 @@ class calculator extends JFrame implements ActionListener {
 
         // create number buttons
         b0 = new JButton("0");
+        // set the size and location of the button
         b1 = new JButton("1");
         b2 = new JButton("2");
         b3 = new JButton("3");
@@ -113,6 +114,7 @@ class calculator extends JFrame implements ActionListener {
         p.add(beq);
         p.add(beq1);
 
+        
         // set Background of panel
         p.setBackground(Color.BLUE);
 

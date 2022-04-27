@@ -14,11 +14,11 @@ class Demo implements MyInterface
     */
    public void method1()
    {
-	System.out.println("implementation of method1");
+	System.out.println("I enjoy icecream");
    }
    public void method2()
    {
-	System.out.println("implementation of method2");
+	System.out.println("I am an ALU student in my second year");
    }
    public static void main(String arg[])
    {

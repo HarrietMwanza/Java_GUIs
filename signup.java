@@ -25,54 +25,55 @@ public class signup {
     // constructor - create the frame and add the components to it
 
     public signup() {
-        // create labels for name, password and confirm password 
-        JLabel lblName = new JLabel("Name");
+        // create labels for name, password and confirm password
+        JLabel lblName = new JLabel("Email");
         JLabel lblPassword = new JLabel("Password");
         JLabel lblConfirmPassword = new JLabel("Confirm Password");
 
-        // we set the size and location of the labels using setBounds() method 
+        // we set the size and location of the labels using setBounds() method
         lblName.setBounds(10, 10, 100, 30);
         lblPassword.setBounds(10, 50, 100, 30);
         lblConfirmPassword.setBounds(10, 100, 150, 30);
-        
+
         // we add the labels to the frame using add() method
-        
 
         // we have buttons for signup, login, and logout and a label to display the
         // message to the user
-        JButton signup, login, logout;
+
         // add buttons to the frame and label to the frame
-        signup = new JButton("Sign Up");
-//  we add action listener and action performed method to the signuo and cancel buttons
+        // signup = new JButton("Sign Up");
+        // we add action listener and action performed method to the signuo and cancel
+        // buttons
 
-btnSignup.addActionListener (new ActionListener() {
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        // TODO Auto-generated method stub
-        signup signup = new signup();
-        signup.signup();
+        // btnSignup.addActionListener (new ActionListener() {
+        // @Override
+        // public void actionPerformed(ActionEvent e) {
+        // // TODO Auto-generated method stub
+        // signup signup = new signup();
+        // signup.signup();
 
+        // }
+        // });
 
-        JButton cancel = new JButton("Cancel");
-        cancel.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // TODO Auto-generated method stub
-                JOptionPane.showMessageDialog(signup.this, "You have cancelled the signup", "Cancel", JOptionPane.INFORMATION_MESSAGE);
-            }
-        });
-    }
+        // JButton cancel = new JButton("Cancel");
+        // cancel.addActionListener(new ActionListener() {
+        // @Override
+        // public void actionPerformed(ActionEvent e) {
+        // // TODO Auto-generated method stub
+        // JOptionPane.showMessageDialog(signup.this, "You have cancelled the signup",
+        // "Cancel", JOptionPane.INFORMATION_MESSAGE);
+        // }
+        // });
         JLabel lbl = new JLabel("");
 
-        // create frame
+        // create frame        
         frame = new JFrame("Sign Up");
         frame.setSize(300, 300);
         frame.setLayout(null);
-        frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame.add(signup);
-        frame.add(cancel);
-        frame.add(logout);
+
+        // frame.add(cancel);
+        // frame.add(logout);
         frame.add(lbl);
 
         frame.add(lblName);
@@ -94,7 +95,7 @@ btnSignup.addActionListener (new ActionListener() {
         frame.add(btnCancel);
 
         // call method signUp when button is clicked
-        btnSignup.addActionListener(e -> signup());
+        btnSignup.addActionListener(e -> accountcreate());
 
         // add components to frame
         frame.add(tfName);
@@ -104,8 +105,8 @@ btnSignup.addActionListener (new ActionListener() {
         frame.add(btnCancel);
 
         // set bounds for the components
-        btnSignup.setBounds(100, 100, 100, 20);
-        btnCancel.setBounds(100, 130, 100, 20);
+        btnSignup.setBounds(100, 100, 120, 20);
+        btnCancel.setBounds(100, 130, 120, 20);
 
         // username - top left
         // password - top right
@@ -113,23 +114,22 @@ btnSignup.addActionListener (new ActionListener() {
         // sign up - bottom right
         // cancel - bottom left
 
-        tfName.setBounds(150, 10, 100, 50);
+        tfName.setBounds(150, 10, 100, 40);
 
         // password - top left + 50
-        tfPassword.setBounds(150, 60, 100, 50);
+        tfPassword.setBounds(150, 60, 100, 40);
 
         // confirm password - top left + 100
-        tfConfirmPassword.setBounds(150, 110, 100, 50);
+        tfConfirmPassword.setBounds(150, 110, 100, 40);
 
         // sign up - top left + 150
-        btnSignup.setBounds(10, 160, 100, 50);
-        btnCancel.setBounds(120, 160, 100, 50);
+        btnSignup.setBounds(10, 160, 90, 50);
+        btnCancel.setBounds(200, 160, 90, 50);
 
         // set frame properties
         frame.setSize(700, 500);
         frame.setLayout(null);
     }
-
 
     // method to sign up the user and add them to the database if
     // the password and confirm password match and the username is not already in
@@ -147,13 +147,13 @@ btnSignup.addActionListener (new ActionListener() {
             // check if the username is already in the database
             try {
                 // create a connection to the database
-                Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/test", "root", "");
+                Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/sys", "root", "Liplan2020");
 
                 // create a statement
                 Statement statement = connection.createStatement();
 
                 // create a query to check if the username is already in the database
-                String query = "SELECT * FROM users WHERE username = '" + username + "'";
+                String query = "SELECT * FROM users WHERE email = '" + username + "'";
 
                 // execute the query
                 ResultSet resultSet = statement.executeQuery(query);
@@ -161,14 +161,17 @@ btnSignup.addActionListener (new ActionListener() {
                 // check if the username is already in the database
                 if (resultSet.next()) {
                     // if the username is already in the database, display an error message
-                    JOptionPane.showMessageDialog(null, "Username already exists");
+                    JOptionPane.showMessageDialog(null, "Name already exists");
                 } else {
                     // if the username is not already in the database, add the user to the database
-                    String query2 = "INSERT INTO users (username, password) VALUES ('" + username + "', '" + password
+                    String query2 = "INSERT INTO users (email, password) VALUES ('" + username + "', '" + password
                             + "')";
                     statement.executeUpdate(query2);
                     JOptionPane.showMessageDialog(null, "ALU Account created");
                     frame.dispose();
+                    // open login page
+                    loginForm loginForm = new loginForm();
+                    loginForm.initialize();
                 }
             } catch (SQLException ex) {
                 ex.printStackTrace();
@@ -182,10 +185,6 @@ btnSignup.addActionListener (new ActionListener() {
     // method to sign up the user and add them to the database if
     // the password and confirm password match and the username is not already in
     // the database
-    // otherwise display an error message and don't add the user to the database
-    public void signup() {
-        accountcreate();
-    }
 
     // method to cancel the sign up process
     public void cancel() {
@@ -194,10 +193,13 @@ btnSignup.addActionListener (new ActionListener() {
 
     // method to start the sign up process
     public static void main(String[] args) {
+        System.out.println("Hello");
         signup signup = new signup();
-        signup.signup();
+        signup.show();
 
     }
-}
-}
 
+    public void show() {
+        frame.setVisible(true);
+    }
+}
