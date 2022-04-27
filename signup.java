@@ -66,7 +66,7 @@ public class signup {
         // });
         JLabel lbl = new JLabel("");
 
-        // create frame        
+        // create frame
         frame = new JFrame("Sign Up");
         frame.setSize(300, 300);
         frame.setLayout(null);
@@ -147,32 +147,22 @@ public class signup {
             // check if the username is already in the database
             try {
                 // create a connection to the database
-                Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/sys", "root", "Liplan2020");
+                Connection connection = DriverManager.getConnection("jdbc:mysql://us-cdbr-east-05.cleardb.net/heroku_9b3266937a8da6a", "b8317e6261f41b",
+                        "1902d091");
 
                 // create a statement
                 Statement statement = connection.createStatement();
 
-                // create a query to check if the username is already in the database
-                String query = "SELECT * FROM users WHERE email = '" + username + "'";
+                // if the username is not already in the database, add the user to the database
+                String query2 = "INSERT INTO users (email, password) VALUES ('" + username + "', '" + password
+                        + "')";
+                statement.executeUpdate(query2);
+                JOptionPane.showMessageDialog(null, "ALU Account created");
+                frame.dispose();
+                // open login page
+                loginForm loginForm = new loginForm();
+                loginForm.initialize();
 
-                // execute the query
-                ResultSet resultSet = statement.executeQuery(query);
-
-                // check if the username is already in the database
-                if (resultSet.next()) {
-                    // if the username is already in the database, display an error message
-                    JOptionPane.showMessageDialog(null, "Name already exists");
-                } else {
-                    // if the username is not already in the database, add the user to the database
-                    String query2 = "INSERT INTO users (email, password) VALUES ('" + username + "', '" + password
-                            + "')";
-                    statement.executeUpdate(query2);
-                    JOptionPane.showMessageDialog(null, "ALU Account created");
-                    frame.dispose();
-                    // open login page
-                    loginForm loginForm = new loginForm();
-                    loginForm.initialize();
-                }
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }

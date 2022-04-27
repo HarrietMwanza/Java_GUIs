@@ -18,7 +18,7 @@ public class program {
 
      program() {
           // create a new frame
-          frame = new JFrame("STUDENT SIGNUP Form TO ALU");
+          frame = new JFrame("STUDENT PROGRAMS AT ALU");
           students = new JButton("STUDENTS");
           // size and location of the button
           students.setSize(100, 30);
@@ -76,7 +76,7 @@ public class program {
      public void retrieveData() throws SQLException {
           // we need to retrieve data from the database to view the programs and other
           // students
-          Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/sys", "root", "Liplan2020");
+          Connection connection = DriverManager.getConnection("jdbc:mysql://us-cdbr-east-05.cleardb.net/heroku_9b3266937a8da6a", "b8317e6261f41b", "1902d091");
           // create a statement
           Statement statement = connection.createStatement();
           // create a query - select * from students

@@ -86,7 +86,7 @@ public class mainFrame {
 
     public void insertTo(String email, String grade, String major) {
         try {
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/sys", "root", "Liplan2020");
+            Connection con = DriverManager.getConnection("jdbc:mysql://us-cdbr-east-05.cleardb.net/heroku_9b3266937a8da6a", "b8317e6261f41b", "1902d091");
             Statement stmt = con.createStatement();
             String query = "INSERT INTO students (email, grade, major) VALUES ('" + email + "', '"
                     + grade + "', '" + major + "')";
